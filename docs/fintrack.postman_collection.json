@@ -1,0 +1,509 @@
+{
+  "info": {
+    "name": "FinTrack API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"password\": \"SecurePassword123!\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"password\": \"SecurePassword123!\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["users"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"id\": 4,\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"password\": \"SecurePassword123!\",\n  \"role\": \"user\"\n}"
+            },
+            {
+              "name": "400 Validation Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"J\",\n  \"email\": \"bad\",\n  \"password\": \"short\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["users"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": [\"name must be longer than or equal to 2 characters\", \"email must be an email\", \"password must be longer than or equal to 8 characters\"],\n  \"error\": \"Bad Request\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Updated\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["users", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Accounts",
+      "item": [
+        {
+          "name": "List Accounts",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/accounts",
+              "host": ["{{base_url}}"],
+              "path": ["accounts"]
+            }
+          }
+        },
+        {
+          "name": "Get Account",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/accounts/1",
+              "host": ["{{base_url}}"],
+              "path": ["accounts", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Account Transactions",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/accounts/1/transactions",
+              "host": ["{{base_url}}"],
+              "path": ["accounts", "1", "transactions"]
+            }
+          }
+        },
+        {
+          "name": "Create Account",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 1,\n  \"name\": \"Wallet Cash\",\n  \"type\": \"cash\",\n  \"balance\": 150\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/accounts",
+              "host": ["{{base_url}}"],
+              "path": ["accounts"]
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": 1,\n  \"name\": \"Wallet Cash\",\n  \"type\": \"cash\",\n  \"balance\": 150\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/accounts",
+                  "host": ["{{base_url}}"],
+                  "path": ["accounts"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"id\": 7,\n  \"userId\": 1,\n  \"name\": \"Wallet Cash\",\n  \"type\": \"cash\",\n  \"balance\": \"150.00\"\n}"
+            },
+            {
+              "name": "400 Validation Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"userId\": \"abc\",\n  \"name\": \"\",\n  \"type\": \"invalid\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/accounts",
+                  "host": ["{{base_url}}"],
+                  "path": ["accounts"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": [\"userId must be an integer number\", \"name should not be empty\", \"type must be one of the following values: cash, bank, e-wallet\"],\n  \"error\": \"Bad Request\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Account",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Main Checking Updated\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/accounts/1",
+              "host": ["{{base_url}}"],
+              "path": ["accounts", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Account",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/accounts/1",
+              "host": ["{{base_url}}"],
+              "path": ["accounts", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "List Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "Get Category",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/categories/1",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Groceries\",\n  \"type\": \"expense\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Groceries\",\n  \"type\": \"expense\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/categories",
+                  "host": ["{{base_url}}"],
+                  "path": ["categories"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"id\": 8,\n  \"name\": \"Groceries\",\n  \"type\": \"expense\"\n}"
+            },
+            {
+              "name": "400 Validation Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": 123,\n  \"type\": \"other\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/categories",
+                  "host": ["{{base_url}}"],
+                  "path": ["categories"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": [\"name must be a string\", \"type must be one of the following values: income, expense\"],\n  \"error\": \"Bad Request\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Groceries Updated\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/categories/1",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/categories/1",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "List Transactions",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/transactions",
+              "host": ["{{base_url}}"],
+              "path": ["transactions"]
+            }
+          }
+        },
+        {
+          "name": "Get Transaction",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/transactions/1",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Transaction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": 1,\n  \"categoryId\": 3,\n  \"type\": \"expense\",\n  \"amount\": 45.5,\n  \"description\": \"Weekly Grocery Trip\",\n  \"transactionDate\": \"2026-08-05\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions",
+              "host": ["{{base_url}}"],
+              "path": ["transactions"]
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": 1,\n  \"categoryId\": 3,\n  \"type\": \"expense\",\n  \"amount\": 45.5,\n  \"description\": \"Weekly Grocery Trip\",\n  \"transactionDate\": \"2026-08-05\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/transactions",
+                  "host": ["{{base_url}}"],
+                  "path": ["transactions"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"id\": 21,\n  \"accountId\": 1,\n  \"categoryId\": 3,\n  \"type\": \"expense\",\n  \"amount\": \"45.50\",\n  \"description\": \"Weekly Grocery Trip\",\n  \"transactionDate\": \"2026-08-05\"\n}"
+            },
+            {
+              "name": "400 Validation Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": 1,\n  \"categoryId\": 3,\n  \"type\": \"invalid_type\",\n  \"amount\": -20,\n  \"transactionDate\": \"not-a-date\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/transactions",
+                  "host": ["{{base_url}}"],
+                  "path": ["transactions"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": [\"type must be one of the following values: income, expense, transfer\", \"amount must be a positive number\", \"transactionDate must be a valid ISO 8601 date string\"],\n  \"error\": \"Bad Request\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Transaction",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 55\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/transactions/1",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Transaction",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/transactions/1",
+              "host": ["{{base_url}}"],
+              "path": ["transactions", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
