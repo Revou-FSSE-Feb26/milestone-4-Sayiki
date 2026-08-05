@@ -1,6 +1,6 @@
 # FinTrack API
 
-FinTrack is a personal finance backend for tracking users, their accounts, categorized transactions, and running balances. The schema is centered on four tables: users own accounts, accounts hold transactions, and transactions are tagged with categories so spending and income can be analyzed consistently.
+FinTrack is my personal finance backend for tracking users, accounts, transactions, categories, and balances. The data model is built around four tables: users own accounts, accounts store transactions, and transactions are tagged with categories so income and spending can be tracked clearly.
 
 ## ERD
 
@@ -46,7 +46,7 @@ erDiagram
   }
 ```
 
-Export the diagram above to `docs/erd.png` before final submission.
+The exported ERD image is saved at `docs/erd.png`.
 
 ## Setup
 
@@ -58,7 +58,7 @@ Copy `.env.example` to `.env`, then set `DATABASE_URL` to your local or hosted P
 
 ## Database
 
-Run the raw SQL files against PostgreSQL when you need the hand-written schema and sample data:
+Run the raw SQL files against PostgreSQL when you need the SQL schema, seed data, or query examples:
 
 ```bash
 psql "$DATABASE_URL" -f db/schema.sql
@@ -66,7 +66,7 @@ psql "$DATABASE_URL" -f db/seed.sql
 psql "$DATABASE_URL" -f db/queries.sql
 ```
 
-If you are using Prisma for Week 21, generate and seed the Prisma schema with:
+If you want to use Prisma, generate and seed the Prisma schema with:
 
 ```bash
 npx prisma migrate dev
@@ -81,6 +81,6 @@ npm run start:dev
 
 ## Project Notes
 
-The app currently exposes `users`, `accounts`, `categories`, and `transactions` modules. The accounts module also includes a nested relational endpoint at `GET /accounts/:id/transactions`.
+The app exposes `users`, `accounts`, `categories`, and `transactions` modules. The accounts module also includes `GET /accounts/:id/transactions` for nested transaction data.
 
-Add your deployed base URL here once the app is live.
+Live URL: add the deployed base URL here after deployment.
