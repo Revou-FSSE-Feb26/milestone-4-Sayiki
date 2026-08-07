@@ -1,52 +1,10 @@
 # FinTrack API
 
-FinTrack is my personal finance backend for tracking users, accounts, transactions, categories, and balances. The data model is built around four tables: users own accounts, accounts store transactions, and transactions are tagged with categories so income and spending can be tracked clearly.
+FinTrack is a personal finance backend for tracking users, accounts, transactions, categories, and balances. The data model is built around four tables: users own accounts, accounts store transactions, and transactions are tagged with categories so income and spending can be tracked clearly.
 
 ## ERD
 
-```mermaid
-erDiagram
-  USERS ||--o{ ACCOUNTS : owns
-  ACCOUNTS ||--o{ TRANSACTIONS : records
-  CATEGORIES ||--o{ TRANSACTIONS : tags
-
-  USERS {
-    int id
-    string name
-    string email
-    string password
-    string role
-    datetime created_at
-  }
-
-  ACCOUNTS {
-    int id
-    int user_id
-    string name
-    string type
-    decimal balance
-    datetime created_at
-  }
-
-  CATEGORIES {
-    int id
-    string name
-    string type
-  }
-
-  TRANSACTIONS {
-    int id
-    int account_id
-    int category_id
-    string type
-    decimal amount
-    string description
-    date transaction_date
-    datetime created_at
-  }
-```
-
-The exported ERD image is saved at `docs/erd.png`.
+![Entity Relationship Diagram](docs/erd.png)
 
 ## Setup
 
@@ -83,4 +41,4 @@ npm run start:dev
 
 The app exposes `users`, `accounts`, `categories`, and `transactions` modules. The accounts module also includes `GET /accounts/:id/transactions` for nested transaction data.
 
-Live URL: add the deployed base URL here after deployment.
+Live URL: https://milestone-4-sayiki.onrender.com
