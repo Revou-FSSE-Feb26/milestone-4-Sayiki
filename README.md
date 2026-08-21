@@ -81,3 +81,4 @@ curl http://localhost:3000/users/1 \
 The app exposes `users`, `accounts`, `categories`, and `transactions` modules. The accounts module also includes `GET /accounts/:id/transactions` for nested transaction data.
 
 Live URL: https://milestone-4-sayiki.onrender.com
+Swagger: https://milestone-4-sayiki.onrender.com/docs
