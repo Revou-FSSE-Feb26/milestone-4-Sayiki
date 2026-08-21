@@ -12,7 +12,12 @@ FinTrack is a personal finance backend for tracking users, accounts, transaction
 npm install
 ```
 
-Copy `.env.example` to `.env`, then set `DATABASE_URL` to your local or hosted PostgreSQL connection string.
+Create a `.env` file and set `DATABASE_URL` and `JWT_SECRET`:
+
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/fintrack"
+JWT_SECRET="your-super-secret-key"
+```
 
 ## Database
 
@@ -35,6 +40,40 @@ npm run db:seed
 
 ```bash
 npm run start:dev
+```
+
+## Auth
+
+This API now supports JWT-based authentication.
+
+### Register
+
+```bash
+curl -X POST http://localhost:3000/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Alice",
+    "email": "alice@example.com",
+    "password": "secret123"
+  }'
+```
+
+### Login
+
+```bash
+curl -X POST http://localhost:3000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "alice@example.com",
+    "password": "secret123"
+  }'
+```
+
+Use the returned `access_token` in the Authorization header:
+
+```bash
+curl http://localhost:3000/users/1 \
+  -H "Authorization: Bearer <access_token>"
 ```
 
 ## Project Notes

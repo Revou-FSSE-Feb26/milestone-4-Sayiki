@@ -2,9 +2,23 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
+
+  app.use(helmet());
+  app.use((req, res, next) => {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] ${req.method} ${req.originalUrl}`);
+    next();
+  });
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -12,6 +26,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
   const config = new DocumentBuilder()
     .setTitle('FinTrack API')
     .setDescription('Personal finance API')

@@ -4,7 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
-    findAll(): import(".prisma/client").Prisma.PrismaPromise<({
+    findAll(): Promise<(Omit<{
         accounts: {
             id: number;
             name: string;
@@ -20,8 +20,8 @@ export declare class UsersController {
         password: string;
         role: string;
         createdAt: Date;
-    })[]>;
-    findOne(id: number): Promise<{
+    }, "password"> | null)[]>;
+    findOne(req: any, id: number): Promise<Omit<{
         accounts: {
             id: number;
             name: string;
@@ -37,29 +37,29 @@ export declare class UsersController {
         password: string;
         role: string;
         createdAt: Date;
-    }>;
-    create(createUserDto: CreateUserDto): import(".prisma/client").Prisma.Prisma__UserClient<{
+    }, "password"> | null>;
+    create(createUserDto: CreateUserDto): Promise<Omit<{
         id: number;
         name: string;
         email: string;
         password: string;
         role: string;
         createdAt: Date;
-    }, never, import("@prisma/client/runtime/library").DefaultArgs>;
-    update(id: number, updateUserDto: UpdateUserDto): Promise<{
+    }, "password"> | null>;
+    update(req: any, id: number, updateUserDto: UpdateUserDto): Promise<Omit<{
         id: number;
         name: string;
         email: string;
         password: string;
         role: string;
         createdAt: Date;
-    }>;
-    remove(id: number): Promise<{
+    }, "password"> | null>;
+    remove(req: any, id: number): Promise<Omit<{
         id: number;
         name: string;
         email: string;
         password: string;
         role: string;
         createdAt: Date;
-    }>;
+    }, "password"> | null>;
 }

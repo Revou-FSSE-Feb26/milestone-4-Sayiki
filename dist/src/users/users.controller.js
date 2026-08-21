@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const update_user_dto_1 = require("./dto/update-user.dto");
+const roles_decorator_1 = require("../auth/roles.decorator");
+const roles_guard_1 = require("../auth/roles.guard");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
@@ -25,31 +27,45 @@ let UsersController = class UsersController {
     findAll() {
         return this.usersService.findAll();
     }
-    findOne(id) {
+    findOne(req, id) {
+        if (req.user.role !== 'admin' && req.user.id !== id) {
+            throw new common_1.ForbiddenException('You can only access your own user profile');
+        }
         return this.usersService.findOne(id);
     }
     create(createUserDto) {
         return this.usersService.create(createUserDto);
     }
-    update(id, updateUserDto) {
+    update(req, id, updateUserDto) {
+        if (req.user.role !== 'admin' && req.user.id !== id) {
+            throw new common_1.ForbiddenException('You can only update your own user profile');
+        }
         return this.usersService.update(id, updateUserDto);
     }
-    remove(id) {
+    remove(req, id) {
+        if (req.user.role !== 'admin' && req.user.id !== id) {
+            throw new common_1.ForbiddenException('You can only delete your own user profile');
+        }
         return this.usersService.remove(id);
     }
 };
 exports.UsersController = UsersController;
 __decorate([
     (0, common_1.Get)(),
+    (0, roles_decorator_1.Roles)('admin'),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    (0, roles_decorator_1.Roles)('admin', 'user'),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findOne", null);
 __decorate([
@@ -61,17 +77,23 @@ __decorate([
 ], UsersController.prototype, "create", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Body)()),
+    (0, roles_decorator_1.Roles)('admin', 'user'),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, update_user_dto_1.UpdateUserDto]),
+    __metadata("design:paramtypes", [Object, Number, update_user_dto_1.UpdateUserDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    (0, roles_decorator_1.Roles)('admin'),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "remove", null);
 exports.UsersController = UsersController = __decorate([
